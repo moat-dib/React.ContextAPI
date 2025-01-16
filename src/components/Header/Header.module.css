@@ -1,0 +1,41 @@
+.header {
+	background-color: #5e99b4;
+	padding: 30px 40px;
+	color: white;
+	text-align: center;
+}
+
+/* Очистить поплавки после заголовка */
+.header:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+/* Стиль ввода */
+input {
+	margin: 0;
+	border: none;
+	border-radius: 0;
+	width: 60%;
+	padding: 10px;
+	float: left;
+	font-size: 16px;
+}
+
+/* Стиль кнопки "Добавить" */
+.addBtn {
+	padding: 10px;
+	width: 25%;
+	background: #d9d9d9;
+	color: #555;
+	float: left;
+	text-align: center;
+	font-size: 16px;
+	cursor: pointer;
+	transition: 0.3s;
+	border: 0px;
+}
+.addBtn:hover {
+	background-color: #bbb;
+}

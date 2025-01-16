@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { HeaderContext } from './HeaderContext.js';
+import { TaskListContext } from './TaskListContext.js';
 import { useRequestGetTasks } from './hooks/use-request-get-tasks';
 import { useRequestAddTask } from './hooks/use-request-add-task';
 import { useRequestDeleteTask } from './hooks/use-request-delete-task';
@@ -13,7 +15,7 @@ export const TaskList = () => {
 	const [sortTasks, setSortTasks] = useState(false);
 	const [editingTitle, setEditingTitle] = useState('');
 	const [editingNum, setEditingNum] = useState('0');
-	const [inputValue, setInputValue] = useState();
+	const [inputValue, setInputValue] = useState('');
 	const [isEditing, setIsEditing] = useState(false);
 	const [refreshTasks, setRefreshTasks] = useState(false);
 	const { isLoading, tasks } = useRequestGetTasks(sortTasks, refreshTasks);
@@ -40,28 +42,31 @@ export const TaskList = () => {
 		setEditingNum(Number(target.id));
 		setEditingTitle('');
 	};
+	const TaskListContextObject = () => ({
+		isEditing,
+		isCreating,
+		isDeleting,
+	});
 	return (
 		<div className={styles.container}>
-			<Header
-				setInputValue={setInputValue}
-				isCreating={isCreating}
-				requestAddTask={requestAddTask}
-			/>
-			<ul className={styles.list} disabled={isEditing}>
-				{isLoading ? (
-					<div className="loader"></div>
-				) : (
-					tasks.map((item) => (
-						<TaskItem
-							item={item}
-							isEditing={isEditing}
-							enableEditor={enableEditor}
-							isDeleting={isDeleting}
-							requestDeleteTask={requestDeleteTask}
-						/>
-					))
-				)}
-			</ul>
+			<HeaderContext.Provider value={TaskListContextObject}>
+				<Header setInputValue={setInputValue} requestAddTask={requestAddTask} />
+			</HeaderContext.Provider>
+			<TaskListContext.Provider value={TaskListContextObject}>
+				<ul className={styles.list} disabled={isEditing}>
+					{isLoading ? (
+						<div className="loader"></div>
+					) : (
+						tasks.map((item) => (
+							<TaskItem
+								item={item}
+								enableEditor={enableEditor}
+								requestDeleteTask={requestDeleteTask}
+							/>
+						))
+					)}
+				</ul>
+			</TaskListContext.Provider>
 			<Footer
 				editingTitle={editingTitle}
 				setEditingTitle={setEditingTitle}

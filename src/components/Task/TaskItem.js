@@ -1,11 +1,8 @@
 import styles from './TaskItem.module.css';
-export const TaskItem = ({
-	item,
-	isEditing,
-	enableEditor,
-	isDeleting,
-	requestDeleteTask,
-}) => {
+import { useContext } from 'react';
+import { TaskListContext } from '../TaskListContext';
+export const TaskItem = ({ item, enableEditor, requestDeleteTask }) => {
+	const { isEditing, isCreating, isDeleting } = useContext(TaskListContext);
 	return (
 		<li key={item.id}>
 			<button

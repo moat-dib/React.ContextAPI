@@ -2,7 +2,7 @@ import styles from './TaskItem.module.css';
 import { useContext } from 'react';
 import { TaskListContext } from '../TaskListContext';
 export const TaskItem = ({ item, enableEditor, requestDeleteTask }) => {
-	const { isEditing, isCreating, isDeleting } = useContext(TaskListContext);
+	const { isEditing, isLoading, isCreating, isDeleting } = useContext(TaskListContext);
 	return (
 		<li key={item.id}>
 			<button

@@ -1,8 +1,8 @@
 import styles from './Header.module.css';
 import { useContext } from 'react';
-import { HeaderContext } from '../HeaderContext';
-export const Header = (setInputValue, requestAddTask) => {
-	const { isEditing, isCreating, isDeleting } = useContext(HeaderContext);
+import { TaskListContext } from '../TaskListContext';
+export const Header = ({ setInputValue, requestAddTask }) => {
+	const { isEditing, isLoading, isCreating, isDeleting } = useContext(TaskListContext);
 	return (
 		<div className={styles.header}>
 			<h2>Task List</h2>

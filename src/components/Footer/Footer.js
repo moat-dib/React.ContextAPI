@@ -1,10 +1,8 @@
 import styles from './Footer.module.css';
-export const Footer = ({
-	editingTitle,
-	setEditingTitle,
-	isEditing,
-	requestUpdateTask,
-}) => {
+import { useContext } from 'react';
+import { TaskListContext } from '../TaskListContext';
+export const Footer = ({ editingTitle, setEditingTitle, requestUpdateTask }) => {
+	const { isEditing, isLoading, isCreating, isDeleting } = useContext(TaskListContext);
 	return (
 		<div className={styles.footer}>
 			<h2>Manage your Tasks</h2>
